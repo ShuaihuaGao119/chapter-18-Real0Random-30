@@ -932,7 +932,7 @@
     correctAnswer: "d"
 }
             // Continue adding questions up to q85 using the same structure as above...
-        ];
+       ];
 
         // Function to randomly shuffle an array
         function shuffle(array) {
@@ -962,9 +962,10 @@
             });
 
             quizForm.appendChild(questionDiv);
-            correctAnswers[`q${index}`] = question.correctAnswer;
+            correctAnswers[`q${index}`] = question.correctAnswer;  // Store correct answer
         });
 
+        // Add the submit button to the form
         quizForm.innerHTML += '<input type="submit" value="Submit Test">';
 
         // Handle form submission and scoring
@@ -972,22 +973,19 @@
             event.preventDefault();  // Prevent form submission
 
             let score = 0;
-            let form = new FormData(this);
+            let form = new FormData(this);  // Create FormData object to capture input values
 
+            // Check answers against correct answers
             for (let question in correctAnswers) {
                 if (form.get(question) === correctAnswers[question]) {
                     score++;
                 }
             }
 
+            // Display result
             let totalQuestions = Object.keys(correctAnswers).length;
             let resultDiv = document.getElementById('result');
             resultDiv.innerHTML = `You scored ${score} out of ${totalQuestions}.`;
-
-            resultDiv.innerHTML += '<br><br>Correct Answers:<br>';
-            for (let question in correctAnswers) {
-                resultDiv.innerHTML += `${question}: ${correctAnswers[question]}<br>`;
-            }
         }
     </script>
 </body>
